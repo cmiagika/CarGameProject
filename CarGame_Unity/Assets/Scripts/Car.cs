@@ -20,11 +20,11 @@ namespace CarGame.Cars {
 
 		// Update is called once per frame
 		void Update() {
-			float a = Input.GetKey("w") ? 1 : Input.GetKey("s") ? -1 : 0;
+			float a = Input.GetKey("space") ? 0 : Input.GetKey("w") ? 1 : 0.15f;
 			float s = Input.GetKey("a") ? -steeringAngle : Input.GetKey("d") ? steeringAngle : 0; //Input.gyro.attitude.???
 			foreach(WheelCollider w in backWheels) w.motorTorque = acceleration * a;
-			foreach(WheelCollider w in allWheels) w.brakeTorque = Input.GetKey("space") ? brake : 0;
-			foreach(WheelCollider w in frontWheels) w.steerAngle = s;
+			foreach(WheelCollider w in allWheels) w.brakeTorque = Input.GetKey("s") ? brake : 0;
+			foreach(WheelCollider w in frontWheels) w.steerAngle = Mathf.Lerp(w.steerAngle, s, Time.deltaTime*5f);
 		}
 	}
 }
